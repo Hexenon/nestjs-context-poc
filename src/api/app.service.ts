@@ -1,8 +1,7 @@
 import { Inject } from '@nestjs/common';
 import { Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import * as context from '../lib/context';
-import { TraceId } from '../lib/context';
+import { TraceId, context } from '../lib/context';
 
 @Injectable()
 export class AppService {

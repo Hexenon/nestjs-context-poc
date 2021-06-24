@@ -7,9 +7,10 @@ import {
 } from '@nestjs/common';
 import { Observable, from } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import * as context from '../../context';
+import { context } from '../context';
+import { NatsPropagator } from '../nats-propagator';
 
-const propagator = new context.NatsPropagator();
+const propagator = new NatsPropagator();
 
 @Injectable()
 export class ContextInterceptor implements NestInterceptor {

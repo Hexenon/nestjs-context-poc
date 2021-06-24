@@ -17,7 +17,7 @@
 
 import { Context } from './context';
 
-export interface ContextManager {
+export interface IContextManager {
   /**
    * Get the current active context
    */

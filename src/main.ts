@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './api/app.module';
 import { createContextMiddleware } from './lib/context';
 import { createTraceIdMiddleware } from './lib/trace-id';
-import * as context from './lib/context';
+import { context } from './lib/context';
 import { Logger } from '@nestjs/common';
 import { MsModule } from './ms/ms.module';
 import { buildTransportOptions } from './lib/nats';

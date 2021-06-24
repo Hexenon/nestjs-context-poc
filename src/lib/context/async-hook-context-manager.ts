@@ -5,7 +5,7 @@
 import * as asyncHooks from 'async_hooks';
 import { EventEmitter } from 'events';
 
-import { ContextManager } from './context-manager';
+import { IContextManager } from './context-manager';
 import { Context } from './context';
 
 type Func<T> = (...args: unknown[]) => T;
@@ -27,7 +27,7 @@ const ADD_LISTENER_METHODS = [
   'prependOnceListener' as const,
 ];
 
-export class AsyncHooksContextManager implements ContextManager {
+export class AsyncHooksContextManager implements IContextManager {
   private _asyncHook: asyncHooks.AsyncHook;
   private _contexts: {
     [uid: number]: Context | undefined | null;
@@ -39,6 +39,9 @@ export class AsyncHooksContextManager implements ContextManager {
       destroy: this._destroy.bind(this),
       promiseResolve: this._destroy.bind(this),
     });
+  }
+  async init(): Promise<void> {
+    return Promise.resolve();
   }
 
   active(): Context | undefined {

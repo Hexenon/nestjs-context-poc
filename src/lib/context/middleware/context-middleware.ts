@@ -1,7 +1,7 @@
-import * as context from '../../context';
+import { context, HttpPropagator } from '../../context';
 import express from 'express';
 
-const propagator = new context.HttpPropagator();
+const propagator = new HttpPropagator();
 
 export const createContextMiddleware = (): express.RequestHandler => {
   return function contextPropagator(req, res, next) {

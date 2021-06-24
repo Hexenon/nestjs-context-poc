@@ -1,4 +1,4 @@
-import * as context from '../context';
+import { context, TraceId } from '../context';
 import { TraceIdProvider } from './trace-id-provider';
 import { UUIDTraceIdProvider } from './uuid-trace-id-provider';
 
@@ -9,7 +9,7 @@ let provider = new UUIDTraceIdProvider();
  * there is one)
  */
 export const current = (): string | undefined => {
-  return context.get(context.TraceId);
+  return context.get(TraceId);
 };
 
 /**
@@ -26,7 +26,7 @@ export const ensure = (): string => {
   } else {
     id = create();
   }
-  context.set(context.TraceId, id);
+  context.set(TraceId, id);
   return id;
 };
 

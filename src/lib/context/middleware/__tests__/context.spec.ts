@@ -1,6 +1,6 @@
 import express from 'express';
 
-import * as context from '../../../context';
+import { context, TraceId } from '../../../context';
 import { createContextMiddleware } from '../context-middleware';
 
 import Request from './mocks/Request';
@@ -61,7 +61,7 @@ describe('ContextMiddleware', () => {
 
     it('extracts the well-known headers', (done) => {
       next.mockImplementation(() => {
-        expect(context.get(context.TraceId)).toBe('request-1234');
+        expect(context.get(TraceId)).toBe('request-1234');
         done();
       });
       middleware(request.asRequest(), response.asResponse(), next);
@@ -86,7 +86,7 @@ describe('ContextMiddleware', () => {
     it('still has the keys async', (done) => {
       next.mockImplementation(() => {
         setTimeout(() => {
-          expect(context.get(context.TraceId)).toBe('request-1234');
+          expect(context.get(TraceId)).toBe('request-1234');
           done();
         }, 100);
       });
@@ -96,7 +96,7 @@ describe('ContextMiddleware', () => {
     it('still has the keys on response end', (done) => {
       next.mockImplementation(() => {
         response.on('finish', () => {
-          expect(context.get(context.TraceId)).toBe('request-1234');
+          expect(context.get(TraceId)).toBe('request-1234');
           done();
         });
         setImmediate(() => {

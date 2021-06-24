@@ -16,9 +16,13 @@
  */
 
 import { Context } from './context';
-import { ContextManager } from './context-manager';
+import { IContextManager } from './context-manager';
 
-export class NoopContextManager implements ContextManager {
+export class NoopContextManager implements IContextManager {
+  async init(): Promise<void> {
+    return Promise.resolve();
+  }
+
   active(): Context | undefined {
     return undefined;
   }
