@@ -8,9 +8,7 @@ import {
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import * as context from '../../context';
-import { getNamespace } from 'cls-hooked';
 
-const session = getNamespace('microservice');
 const propagator = new context.NatsPropagator();
 
 @Injectable()
