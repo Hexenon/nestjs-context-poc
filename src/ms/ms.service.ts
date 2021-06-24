@@ -4,13 +4,13 @@ import { TraceId } from '../lib/context';
 
 @Injectable()
 export class MsService {
-  hello(): {
-    msg: string;
+  hello(data: unknown): {
+    data: unknown;
     traceId: string;
   } {
     const ctx = context.active();
     return {
-      msg: 'hello',
+      data,
       traceId: ctx ? ctx.get(TraceId) : '',
     };
   }

@@ -34,12 +34,12 @@ export class ContextInterceptor implements NestInterceptor {
           const zeusCtx = propagator.extract(rpcData.context);
           return context.withContext(zeusCtx, () => {
             context.bind(executionCtx, zeusCtx);
-            return from([executionCtx.getHandler()(rpcData)]).pipe(
+            return from([executionCtx.getHandler()(rpcData.data)]).pipe(
               tap(() => console.log(`After... ${Date.now() - now}ms`)),
             );
           });
         }
-        return from([executionCtx.getHandler()(rpcData)]).pipe(
+        return from([executionCtx.getHandler()(rpcData.data)]).pipe(
           tap(() => console.log(`After... ${Date.now() - now}ms`)),
         );
       }

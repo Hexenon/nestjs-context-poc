@@ -6,7 +6,7 @@ import { MsService } from './ms.service';
 export class MsController {
   constructor(private readonly service: MsService) {}
   @MessagePattern('hello')
-  hello() {
-    return this.service.hello();
+  hello(data: unknown) {
+    return this.service.hello(data);
   }
 }

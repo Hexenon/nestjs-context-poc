@@ -6,3 +6,5 @@ run it
 docker-compose up -d
 yarn start:dev
 ```
+now navigate to `http://localhost:3000/?some=value`
+
