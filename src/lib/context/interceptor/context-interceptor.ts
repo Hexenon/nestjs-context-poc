@@ -5,7 +5,7 @@ import {
   ExecutionContext,
   CallHandler,
 } from '@nestjs/common';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import * as context from '../../context';
 
@@ -34,14 +34,14 @@ export class ContextInterceptor implements NestInterceptor {
           const zeusCtx = propagator.extract(rpcData.context);
           return context.withContext(zeusCtx, () => {
             context.bind(executionCtx, zeusCtx);
-            return next
-              .handle()
-              .pipe(tap(() => console.log(`After... ${Date.now() - now}ms`)));
+            return from([executionCtx.getHandler()(rpcData)]).pipe(
+              tap(() => console.log(`After... ${Date.now() - now}ms`)),
+            );
           });
         }
-        return next
-          .handle()
-          .pipe(tap(() => console.log(`After... ${Date.now() - now}ms`)));
+        return from([executionCtx.getHandler()(rpcData)]).pipe(
+          tap(() => console.log(`After... ${Date.now() - now}ms`)),
+        );
       }
       case 'ws': {
         return next

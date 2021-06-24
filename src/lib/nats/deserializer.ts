@@ -15,6 +15,12 @@ export class InboundMessageIdentityDeserializer
       // small hack to send context to interceptor, the idea is to execute handle function with data only...
       // would be awesome if context can be set up here.
       console.log('Extracted Ctx', extractedCtx);
+      const ctx = {};
+      propagator.inject(ctx, extractedCtx);
+      value.data = {
+        data: value.data,
+        context: ctx,
+      };
     }
     console.log('VALUE=>', value);
     return value;
