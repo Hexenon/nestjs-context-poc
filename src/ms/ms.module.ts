@@ -6,6 +6,8 @@ import { MsController } from './ms.controller';
 import { MsService } from './ms.service';
 import { OgmaInterceptor, OgmaModule } from '@ogma/nestjs-module';
 import { NatsParser } from '@ogma/platform-nats';
+import { ExpressParser } from '@ogma/platform-express';
+import { OgmaExtensionInterceptor } from './ogma-extension.interceptor';
 
 @Module({
   imports: [
@@ -16,7 +18,7 @@ import { NatsParser } from '@ogma/platform-nats';
         application: 'ms',
       },
       interceptor: {
-        http: false,
+        http: ExpressParser,
         ws: false,
         gql: false,
         rpc: NatsParser,
@@ -28,7 +30,7 @@ import { NatsParser } from '@ogma/platform-nats';
     MsService,
     {
       provide: APP_INTERCEPTOR,
-      useClass: OgmaInterceptor,
+      useClass: OgmaExtensionInterceptor,
     },
     // {
     //   provide: APP_PIPE,
