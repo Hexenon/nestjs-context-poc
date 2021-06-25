@@ -10,7 +10,10 @@ export class AppService {
 
     private readonly logger: OgmaService,
   ) {}
-  async getHello(data: unknown): Promise<{
+  async getHello(
+    data: unknown,
+    reqId: string,
+  ): Promise<{
     msg: string;
     traceId: string;
     remote: unknown;
@@ -18,10 +21,12 @@ export class AppService {
     this.logger.info('Amazing logging 1', {
       some: 'value',
     });
-    const r = await this.client.send('hello', data).toPromise();
+    const r = await this.client
+      .send('hello', { data, traceId: reqId })
+      .toPromise();
     return {
       msg: 'Hello World!',
-      traceId: '',
+      traceId: reqId,
       remote: r,
     };
   }
