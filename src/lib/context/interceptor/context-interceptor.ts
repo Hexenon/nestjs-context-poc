@@ -29,8 +29,6 @@ export class ContextInterceptor implements NestInterceptor {
       case 'rpc': {
         const rpcCtx = executionCtx.switchToRpc();
         const rpcData = rpcCtx.getData();
-        const ctx = context.active();
-        console.log('ZEUS CTX', ctx);
         if (rpcData.context) {
           const zeusCtx = propagator.extract(rpcData.context);
           return context.withContext(zeusCtx, () => {
@@ -40,9 +38,9 @@ export class ContextInterceptor implements NestInterceptor {
             );
           });
         }
-        return from([executionCtx.getHandler()(rpcData.data)]).pipe(
-          tap(() => console.log(`After... ${Date.now() - now}ms`)),
-        );
+        return next
+          .handle()
+          .pipe(tap(() => console.log(`After... ${Date.now() - now}ms`)));
       }
       case 'ws': {
         return next

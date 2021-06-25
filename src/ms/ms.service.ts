@@ -1,16 +1,16 @@
 import { Injectable } from '@nestjs/common';
-import { context, TraceId } from '../lib/context';
-
+import { OgmaLogger, OgmaService } from '@ogma/nestjs-module';
 @Injectable()
 export class MsService {
+  constructor(private readonly logger: OgmaService) {}
   hello(data: unknown): {
     data: unknown;
     traceId: string;
   } {
-    const ctx = context.active();
+    this.logger.info('MS service logger', { data });
     return {
       data,
-      traceId: ctx ? ctx.get(TraceId) : '',
+      traceId: '',
     };
   }
 }

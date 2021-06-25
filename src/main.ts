@@ -12,8 +12,8 @@ async function bootstrapApi() {
     providerType: 'node',
   });
   const app = await NestFactory.create(AppModule);
-  app.use(createContextMiddleware());
-  app.use(createTraceIdMiddleware());
+  // app.use(createContextMiddleware());
+  // app.use(createTraceIdMiddleware());
   app.listen(3000, () => {
     Logger.log('Api ready http://localhost:3000');
   });

@@ -7,3 +7,4 @@ export * from './context-propagator';
 export * from './nats-propagator';
 export * from './middleware';
 export * from './interceptor';
+export * from './pipe';
